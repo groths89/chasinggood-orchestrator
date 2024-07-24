@@ -70,6 +70,7 @@ jobs:
         with:
           repository: The-Commodore-Designs-Dev/Chasing-Good-Organization
           ref: developer
+          path: /packages/webapp
 
       - name: Setup AWS ECR Details
         uses: aws-actions/configure-aws-credentials@v1
