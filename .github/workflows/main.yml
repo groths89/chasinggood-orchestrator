@@ -71,7 +71,8 @@ jobs:
           repository: The-Commodore-Designs-Dev/Chasing-Good-Organization
           ref: developer
           sparse-checkout: |
-            packages/webapp
+            .github
+            webapp
 
       - name: Setup AWS ECR Details
         uses: aws-actions/configure-aws-credentials@v1
