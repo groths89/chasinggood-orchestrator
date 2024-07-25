@@ -68,11 +68,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: The-Commodore-Designs-Dev/Chasing-Good-Organization
+          repository: groths89/chasinggood-web
           ref: developer
-          sparse-checkout: |
-            .github
-            webapp
 
       - name: Setup AWS ECR Details
         uses: aws-actions/configure-aws-credentials@v1
