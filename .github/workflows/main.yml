@@ -29,7 +29,7 @@ jobs:
           ECR_REPOSITORY: ${{secrets.AWS_ECR_APP_REPO}}
           IMAGE_TAG: latest
         run: |
-          docker build --file ./docker/8.3/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
   Build-Nginx-Image:
