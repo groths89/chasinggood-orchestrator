@@ -3,34 +3,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  Build-Laravel-Image:
-    name: Build Laravel Docker Image
-    runs-on: ubuntu-latest
+  Deploy-Laravel-Image:
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          repository: groths89/chasinggood-app
-
-      - name: Setup AWS ECR Details
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{secrets.AWS_REGION}}
-
-      - name: Login to Amazon ECR
-        id: login-pf-aws-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build and push the tagged docker image to Amazon ECR
+          php-version: 8.0
+          tools: composer:v2
+          coverage: none
+      - name: Require Vapor CLI
+        run: composer global require laravel/vapor-cli
+      - name: Install Project Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+      - name: Deploy Environment
+        run: vapor deploy
         env:
-          ECR_REGISTRY: ${{ steps.login-pf-aws-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{secrets.AWS_ECR_APP_REPO}}
-          IMAGE_TAG: latest
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
 
   Build-Nginx-Image:
     name: Build Nginx Docker Image
