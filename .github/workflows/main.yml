@@ -4,9 +4,13 @@ on:
 
 jobs:
   Deploy-Laravel-Image:
+    name: Deploy Laravel Docker Image
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          repository: groths89/chasinggood-app
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
