@@ -63,7 +63,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: groths89/chasinggood-web
-          ref: developer
 
       - name: Setup AWS ECR Details
         uses: aws-actions/configure-aws-credentials@v1
